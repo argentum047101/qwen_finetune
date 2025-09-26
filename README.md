@@ -1,10 +1,16 @@
-This project fine-tunes the Qwen2.5-VL 7B model to detect specific artifacts in images with the following output structure:
+### Project Overview
+
+This project fine‑tunes the **Qwen2.5‑VL 7B** model to detect and classify specific artifacts in images.  
+The model produces a structured JSON‑like output with the following fields:
+
+```json
 {
   "watermarks": "number of watermarks in the image",
   "text": "text present in the image",
   "main object": "primary object in the image",
   "style": "visual style of the image"
 }
+```
 
 ### Dataset Source
 
