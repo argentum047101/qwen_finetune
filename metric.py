@@ -12,7 +12,6 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
 
 def normalized_edit_similarity(s1: str, s2: str) -> float:
@@ -34,6 +33,7 @@ def evaluate_example(ground_truth: dict, prediction: dict) -> dict:
     Compare a single prediction to ground truth and compute evaluation metrics.
     """
     report = {}
+    model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
     # Watermarks
     true_wm = ground_truth["watermarks"]

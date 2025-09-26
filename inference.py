@@ -19,7 +19,6 @@ logging.basicConfig(
 
 
 class Config:
-    """Central configuration for the image analyzer"""
     MODEL_NAME = "lora_model"
     LOAD_IN_4BIT = True
     MAX_NEW_TOKENS = 128
@@ -37,7 +36,6 @@ class Config:
 
 
 class ImageAnalysis(BaseModel):
-    """Schema for image analysis results"""
     watermarks: int = Field(ge=0, description="Number of watermarks detected")
     text: str = Field(description="Text detected in the image")
     main_object: str = Field(description="Primary subject of the image")
@@ -46,8 +44,6 @@ class ImageAnalysis(BaseModel):
 
 
 class ImageAnalyzer:
-    """Main class for analyzing images using Vision-Language Model"""
-
     def __init__(self, model_name: str = Config.MODEL_NAME, load_in_4bit: bool = Config.LOAD_IN_4BIT):
         """
         Initialize the VLM model and tokenizer.
@@ -126,7 +122,7 @@ class ImageAnalyzer:
                 max_new_tokens=Config.MAX_NEW_TOKENS,
                 temperature=Config.TEMPERATURE,
                 use_cache=True
-            )
+            ).to("cuda")
 
         raw_output = self.tokenizer.decode(output[0], skip_special_tokens=True)
         result = self._extract_json_from_output(raw_output)
