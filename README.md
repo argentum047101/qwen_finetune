@@ -60,13 +60,10 @@ install requirements.txt
 Inference
 ```
 # Single image
-python inference.py --image photo.jpg
+python inference.py --image photo.jpg  --output results.json
 
 # Folder of images
-python inference.py --folder ./images/
-
-# Save results
-python inference.py --folder ./images/ --output results.json
+python inference.py --folder ./images/  --output results.json
 ```
 
 ---
@@ -100,8 +97,6 @@ model = FastVisionModel.get_peft_model(
 | Text           | Levenshtein Distance      | Difference between predict/ground       
 | Main Object    | Cosine Similarity         | Semantic similarity of object descriptions      |
 | Style          | Accuracy                  | Percentage of correctly predicted styles         |
-
-вшить стили в промпт
 
 ---
 
@@ -145,8 +140,8 @@ model = FastVisionModel.get_peft_model(
  TODO:
  
 1. Prompt engineering with base models
-2. Train a LoRA model on the full image dataset
-3. Experiment with varying watermark patterns
+2. Train the LoRA model on the full image dataset
+3. Experiment with varying watermark patterns to increase robustness 
 4. Start with a larger model for zero-shot predictions
 5. LoRA training with larger model
 6. Add metric components for better evaluation
