@@ -32,7 +32,8 @@ The dataset contains **81,444 pieces of visual art** from [WikiArt.org](https://
   - Different positions  
   - Varying quantities  
   - Multiple colors  
-  - Rotated at various angles  
+  - Rotated at various angles
+  - Different watermark words
 - Split dataset into:
   - **70%** training  
   - **20%** validation  
@@ -40,7 +41,8 @@ The dataset contains **81,444 pieces of visual art** from [WikiArt.org](https://
 
  ### Generated image example
 
-<PIL.PngImagePlugin.PngImageFile image mode=RGB size=1382x1847>
+<img width="300" height="800" alt="image" src="https://github.com/user-attachments/assets/2ef73361-e515-41f7-b3fa-5f5b7c262485" />
+
 
 ```json
 {
@@ -146,7 +148,8 @@ model = FastVisionModel.get_peft_model(
 1. Prompt engineering with base models
 2. Train a LoRA model on the full image dataset
 3. Experiment with varying watermark patterns
-4. Start with a larger model for zero-shot predictions, 
+4. Start with a larger model for zero-shot predictions
 5. LoRA training with larger model
+6. Add metric components for better evaluation
 
 
