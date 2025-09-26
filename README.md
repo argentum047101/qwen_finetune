@@ -81,7 +81,6 @@ model = FastVisionModel.get_peft_model(
 | **Metric**                   | **Base Model** | **LoRA Fine-tuned** | **Improvement** |
 |-------------------------------|----------------|----------------------|-----------------|
 | Watermarks (MAE ↓)            | 0.1965         | 0.1148               | **41.6%**       |
-| Text Similarity (↑)           | 0.7002         | 0.7311               | **4.4%**        |
 | Text Levenshtein Distance (↓) | 10.786         | 9.196                | **14.7%**       |
 | Main Object Similarity (↑)    | 0.4403         | 0.6377               | **44.8%**       |
 | Style Accuracy (↑)            | 0.3687         | 0.4967               | **34.7%**       |
