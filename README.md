@@ -35,7 +35,12 @@ The dataset contains **81,444 pieces of visual art** from [WikiArt.org](https://
 - Split dataset into:
   - **70%** training  
   - **20%** validation  
-  - **10%** testing  
+  - **10%** testing
+
+ ### Generated image example
+<img width="300" height="450" alt="image" src="https://github.com/user-attachments/assets/dca20545-fab5-403c-9b99-6cfaceaded43" />
+
+---
 
 Fine-tuning Method
 LoRA Configuration:
@@ -56,6 +61,8 @@ model = FastVisionModel.get_peft_model(
     loftq_config = None,
 )
 ```
+
+---
 
 ### Evaluation Metrics
 
