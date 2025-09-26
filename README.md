@@ -97,3 +97,17 @@ model = FastVisionModel.get_peft_model(
 - **Text recognition:** 14.7% reduction in edit distance  
 
 *LoRA fine‑tuning demonstrates significant improvements across all metrics, with especially strong performance in watermark detection and main object recognition.*
+
+---
+
+### Inference Example
+<img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/659a4099-ca8b-4d89-b77a-1eeeab8b8166" />
+
+```json
+{
+  "watermarks": 4,
+  "text": "Photograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!\nPhotograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!\nPhotograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!\nPhotograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!"
+  "main_object": "Flowers in a field",
+  "style":" Contemporary_Realism"
+}
+```
