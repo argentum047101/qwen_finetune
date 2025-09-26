@@ -130,7 +130,7 @@ model = FastVisionModel.get_peft_model(
 ```json
 {
   "watermarks": 4,
-  "text": "Photograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!\nPhotograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!\nPhotograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!\nPhotograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!"
+  "text": "Photograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!; Photograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!; Photograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!; Photograph by Jacob Hoffman-Andrews. Licensed CC-BY. Make a copy!"
   "main_object": "Flowers in a field",
   "style":" Contemporary_Realism"
 }
