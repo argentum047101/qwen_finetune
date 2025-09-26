@@ -58,6 +58,7 @@ How to run
 install requirements.txt
 
 ### Inference
+```
 # Single image
 python inference.py --image photo.jpg
 
@@ -66,9 +67,7 @@ python inference.py --folder ./images/
 
 # Save results
 python inference.py --folder ./images/ --output results.json
-
-### Train
-Use train.ipynb notebook for LoRA training
+```
 
 ---
 Fine-tuning Method
