@@ -98,7 +98,7 @@ model = FastVisionModel.get_peft_model(
 | **Task**       | **Metric**               | **Description**                                 |
 |----------------|--------------------------|-------------------------------------------------|
 | Watermarks     | MAE (Mean Absolute Error) | Measures count error of detected watermarks     |
-| Text           | Levenshtein Distance      | Difference between two predict/ground       
+| Text           | Levenshtein Distance      | Difference between predict/ground       
 | Main Object    | Cosine Similarity         | Semantic similarity of object descriptions      |
 | Style          | Accuracy                  | Percentage of correctly predicted styles         |
 
