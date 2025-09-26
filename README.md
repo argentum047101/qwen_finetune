@@ -26,8 +26,8 @@ The dataset contains **81,444 pieces of visual art** from [WikiArt.org](https://
 ### Data Preparation
   
 - Selected ~5,000 images with uniform distribution across all style classes
-- Predicted main object with another vlm model
-- Applied various watermark augmentations:
+- Predicted main object with another vlm model???
+- Applied various watermark transformations:
   - Different patterns  
   - Different positions  
   - Varying quantities  
@@ -40,9 +40,10 @@ The dataset contains **81,444 pieces of visual art** from [WikiArt.org](https://
 
  ### Generated image example
 <img width="300" height="450" alt="image" src="https://github.com/user-attachments/assets/dca20545-fab5-403c-9b99-6cfaceaded43" />
-
+(пример json)
 ---
-
+How to run
+---
 Fine-tuning Method
 LoRA Configuration:
 
@@ -70,9 +71,11 @@ model = FastVisionModel.get_peft_model(
 | **Task**       | **Metric**               | **Description**                                 |
 |----------------|--------------------------|-------------------------------------------------|
 | Watermarks     | MAE (Mean Absolute Error) | Measures count error of detected watermarks     |
-| Text           | Levenshtein Distance      | Edit distance for text accuracy                 |
+| Text           | Levenshtein Distance      |              |
 | Main Object    | Cosine Similarity         | Semantic similarity of object descriptions      |
 | Style          | Accuracy                  | Percentage of correctly predicted styles         |
+
+вшить стили в промпт
 
 ---
 
