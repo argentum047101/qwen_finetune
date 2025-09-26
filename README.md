@@ -25,7 +25,8 @@ The dataset contains **81,444 pieces of visual art** from [WikiArt.org](https://
 
 ### Data Preparation
   
-- Selected ~5,000 images with uniform distribution across all style classes  
+- Selected ~5,000 images with uniform distribution across all style classes
+- Predicted main object with another vlm model
 - Applied various watermark augmentations:
   - Different patterns  
   - Different positions  
@@ -111,3 +112,5 @@ model = FastVisionModel.get_peft_model(
   "style":" Contemporary_Realism"
 }
 ```
+
+
