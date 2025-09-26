@@ -53,11 +53,11 @@ The dataset contains **81,444 pieces of visual art** from [WikiArt.org](https://
 }
 ```
 ---
-How to run
+### How to run
 
 install requirements.txt
 
-### Inference
+Inference
 ```
 # Single image
 python inference.py --image photo.jpg
