@@ -99,11 +99,13 @@ def convert_and_split_dataset(input_file, output_dir, train_ratio=0.8, val_ratio
     print(f"Val: {len(val_data)} ({len(val_data)/total_samples*100:.1f}%)")
     print(f"Test: {len(test_data)} ({len(test_data)/total_samples*100:.1f}%)")
 
-# Usage
-convert_and_split_dataset(
-    input_file='vlm_finetune_data_new.jsonl',
-    output_dir='qwen_dataset',
-    train_ratio=0.8,
-    val_ratio=0.1,
-    test_ratio=0.1
-)
+
+if __name__ == "__main__":
+    # Usage
+    convert_and_split_dataset(
+        input_file='vlm_finetune_data_new.jsonl',
+        output_dir='qwen_dataset',
+        train_ratio=0.8,
+        val_ratio=0.1,
+        test_ratio=0.1
+    )
