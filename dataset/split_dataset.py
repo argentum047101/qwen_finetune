@@ -1,42 +1,29 @@
 import json
 import random
+import logging
 from pathlib import Path
 
-def convert_and_split_dataset(input_file, output_dir, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1):
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
+
+def load_and_convert(input_file: str) -> list:
     """
-    Convert JSONL to Qwen format and split into train/val/test sets
-    
-    Args:
-        input_file: Path to input JSONL file
-        output_dir: Directory to save the split datasets
-        train_ratio: Proportion of data for training (default: 0.8)
-        val_ratio: Proportion of data for validation (default: 0.1)
-        test_ratio: Proportion of data for testing (default: 0.1)
+    Load a JSONL dataset and convert each entry into Qwen-compatible conversation format.
     """
-    
-    # Ensure ratios sum to 1
-    assert abs(train_ratio + val_ratio + test_ratio - 1.0) < 1e-5, "Ratios must sum to 1"
-    
-    # Create output directory
-    output_path = Path(output_dir)
-    output_path.mkdir(parents=True, exist_ok=True)
-    
-    # Read and convert all data
     converted_data = []
-    
-    with open(input_file, 'r') as f:
+    with open(input_file, 'r', encoding="utf-8") as f:
         for line in f:
             data = json.loads(line.strip())
-            
-            # Create the expected output JSON
+
             output_json = {
                 "watermarks": data["watermarks"],
                 "text": data["text"],
                 "main object": data["main object"],
                 "style": data["style"]
             }
-            
-            # Create the conversation
+
             conversation = {
                 "messages": [
                     {
@@ -48,7 +35,10 @@ def convert_and_split_dataset(input_file, output_dir, train_ratio=0.8, val_ratio
                             },
                             {
                                 "type": "text",
-                                "text": "Analyze this image and provide the following information in JSON format: watermarks count, text in the image, main object, and visual style."
+                                "text": (
+                                    "Analyze this image and provide the following information in JSON format: "
+                                    "watermarks count, text in the image, main object, and visual style."
+                                )
                             }
                         ]
                     },
@@ -63,49 +53,66 @@ def convert_and_split_dataset(input_file, output_dir, train_ratio=0.8, val_ratio
                     }
                 ]
             }
-            
+
             converted_data.append(conversation)
-    
-    # Shuffle the data
-    random.shuffle(converted_data)
-    
-    # Calculate split indices
-    total_samples = len(converted_data)
+    logging.info("Converted %d records into Qwen format", len(converted_data))
+    return converted_data
+
+def split_data(data: list, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1):
+    """
+    Shuffle and split the dataset into train/val/test according to given ratios.
+    """
+    assert abs(train_ratio + val_ratio + test_ratio - 1.0) < 1e-5, "Ratios must sum to 1"
+    random.shuffle(data)
+
+    total_samples = len(data)
     train_size = int(total_samples * train_ratio)
     val_size = int(total_samples * val_ratio)
-    
-    # Split the data
-    train_data = converted_data[:train_size]
-    val_data = converted_data[train_size:train_size + val_size]
-    test_data = converted_data[train_size + val_size:]
-    
-    # Save the splits
-    splits = {
-        'train': train_data,
-        'val': val_data,
-        'test': test_data
+
+    train_data = data[:train_size]
+    val_data = data[train_size:train_size + val_size]
+    test_data = data[train_size + val_size:]
+
+    logging.info("Dataset split complete: total=%d, train=%d, val=%d, test=%d",
+                 total_samples, len(train_data), len(val_data), len(test_data))
+    return {
+        "train": train_data,
+        "val": val_data,
+        "test": test_data
     }
-    
+
+def save_splits(splits: dict, output_dir: str):
+    """
+    Save split datasets into JSON files within the output directory.
+    """
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
     for split_name, split_data in splits.items():
-        output_file = output_path / f'{split_name}.json'
-        with open(output_file, 'w', encoding='utf-8') as f:
+        output_file = output_path / f"{split_name}.json"
+        with open(output_file, "w", encoding="utf-8") as f:
             json.dump(split_data, f, ensure_ascii=False, indent=2)
-        print(f"Saved {len(split_data)} samples to {output_file}")
-    
-    # Print statistics
-    print(f"\nDataset split complete:")
-    print(f"Total samples: {total_samples}")
-    print(f"Train: {len(train_data)} ({len(train_data)/total_samples*100:.1f}%)")
-    print(f"Val: {len(val_data)} ({len(val_data)/total_samples*100:.1f}%)")
-    print(f"Test: {len(test_data)} ({len(test_data)/total_samples*100:.1f}%)")
+        logging.info("Saved %d samples to %s", len(split_data), output_file)
 
+def convert_and_split_dataset(input_file, output_dir, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1):
+    """
+    End-to-end process: load + convert dataset, split into subsets, and save them.
+    """
+    data = load_and_convert(input_file)
+    splits = split_data(data, train_ratio, val_ratio, test_ratio)
+    save_splits(splits, output_dir)
 
-if __name__ == "__main__":
-    # Usage
+def main():
+    """
+    Main entry point for dataset conversion and splitting.
+    """
     convert_and_split_dataset(
         input_file='vlm_finetune_data_new.jsonl',
         output_dir='qwen_dataset',
-        train_ratio=0.8,
-        val_ratio=0.1,
+        train_ratio=0.7,
+        val_ratio=0.2,
         test_ratio=0.1
     )
+
+if __name__ == "__main__":
+    main()
